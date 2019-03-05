@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Apollo - Leave Management System">
+    <meta name="author" content="Het Paing(htetpaing.phyo@apollo-towers.com)">
+
+    <title>Apollo WMS</title>
+
+    <link href="~/lib/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="~/lib/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Home" asp-action="Index">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Apollo WMS</div>
+            </a>
+
+            @if (ViewBag.Role != "REQUESTER")
+            {
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0" />
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Admin
+                </div>
+
+                <!-- Nav Item - Balance Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBalances" aria-expanded="true" aria-controls="collapseBalances">
+                        <!-- <i class="fas fa-fw fa-cog"></i> -->
+                        <i class="fas fa-fw fa-cogs"></i>
+                        <span>Balances</span>
+                    </a>
+                    <div id="collapseBalances" class="collapse" aria-labelledby="headingBalances" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Balances Admin:</h6>
+                            <a class="collapse-item" asp-controller="Balances" asp-action="Index">Balances List</a>
+                            <a class="collapse-item" asp-controller="Balances" asp-action="Create">Balances Setup</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Holidays Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHolidays" aria-expanded="true" aria-controls="collapseHolidays">
+                        <!-- <i class="fas fa-fw fa-cog"></i> -->
+                        <i class="fas fa-fw fa-cogs"></i>
+                        <span>Holidays</span>
+                    </a>
+                    <div id="collapseHolidays" class="collapse" aria-labelledby="headingHolidays" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Holidays Admin:</h6>
+                            <a class="collapse-item" asp-controller="Holidays" asp-action="Index">Holidays List</a>
+                            <a class="collapse-item" asp-controller="Holidays" asp-action="Create">Holiday Setup</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Departments Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDepartments" aria-expanded="true" aria-controls="collapseDepartments">
+                        <!-- <i class="fas fa-fw fa-cog"></i> -->
+                        <i class="fas fa-fw fa-cogs"></i>
+                        <span>Departments</span>
+                    </a>
+                    <div id="collapseDepartments" class="collapse" aria-labelledby="headingDepartments" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Departments Admin:</h6>
+                            <a class="collapse-item" asp-controller="Departments" asp-action="Index">Departments List</a>
+                            <a class="collapse-item" asp-controller="Departments" asp-action="Create">Departments Setup</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Roles Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRoles" aria-expanded="true" aria-controls="collapseRoles">
+                        <!-- <i class="fas fa-fw fa-cog"></i> -->
+                        <i class="fas fa-fw fa-cogs"></i>
+                        <span>Roles</span>
+                    </a>
+                    <div id="collapseRoles" class="collapse" aria-labelledby="headingRoles" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Roles Admin:</h6>
+                            <a class="collapse-item" asp-controller="Roles" asp-action="Index">Roles List</a>
+                            <a class="collapse-item" asp-controller="Roles" asp-action="Create">Roles Setup</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Employees Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmployees" aria-expanded="true" aria-controls="collapseEmployees">
+                        <!-- <i class="fas fa-fw fa-cog"></i> -->
+                        <i class="fas fa-fw fa-cogs"></i>
+                        <span>Emloyees</span>
+                    </a>
+                    <div id="collapseEmployees" class="collapse" aria-labelledby="headingEmployees" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Roles Admin:</h6>
+                            <a class="collapse-item" asp-controller="Employees" asp-action="Index">Employee List</a>
+                            <a class="collapse-item" asp-controller="Employees" asp-action="Create">Employee Setup</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - EmployeeTypes Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmpTypes" aria-expanded="true" aria-controls="collapseEmpTypes">
+                        <!-- <i class="fas fa-fw fa-cog"></i> -->
+                        <i class="fas fa-fw fa-cogs"></i>
+                        <span>Emloyee Types</span>
+                    </a>
+                    <div id="collapseEmpTypes" class="collapse" aria-labelledby="headingEmpTypes" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Roles Admin:</h6>
+                            <a class="collapse-item" asp-controller="EmployeeTypes" asp-action="Index">Employee Type List</a>
+                            <a class="collapse-item" asp-controller="EmployeeTypes" asp-action="Create">Employee Type Setup</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Reports Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseReports">
+                        <!-- <i class="fas fa-fw fa-cog"></i> -->
+                        <i class="fas fa-fw fa-cogs"></i>
+                        <span>Reports</span>
+                    </a>
+                    <div id="collapseReports" class="collapse" aria-labelledby="headingReports" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Roles Admin:</h6>
+                            <a class="collapse-item" asp-controller="Reports" asp-action="Index">Report List</a>
+                            <a class="collapse-item" asp-controller="Reports" asp-action="Create">Report Setup</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider" />
+            }
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Profile
+            </div>
+            <!-- Nav Item - Account Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-user-circle"></i>
+                    <span>Account</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Account Settings:</h6>
+                        <a class="collapse-item" href="#">Change Picture</a>
+                        <a class="collapse-item" href="#">Change Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Others:</h6>
+                        <a class="collapse-item">Privacy Policy</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block" />
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Menus -->
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-primary text-lg" asp-area="" asp-controller="LeaveRequests" asp-action="Create">Request</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-primary text-lg" asp-area="" asp-controller="LeaveRequests" asp-action="Index">Pending</a>
+                            </li>
+                            @if (ViewBag.Role == "EXAMINER")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="LeaveRequests" asp-action="LeaveRequestLog">Check Leave</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                    Message Center
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://cdn1.iconfinder.com/data/icons/navigation-elements/512/user-login-man-human-body-mobile-person-512.png" alt="">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <div class="text-truncate">Dear @ViewBag.Name, someone is requesting...</div>
+                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                            </div>
+                        </li>
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    @ViewBag.Name
+                                </span>
+                                <img class="img-profile rounded-circle" src="https://cdn1.iconfinder.com/data/icons/navigation-elements/512/user-login-man-human-body-mobile-person-512.png">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Apollo Towers Myanmar @DateTime.Now.Year</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" asp-action="Logout" asp-controller="Home">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Logout Model -->
+
+    <!-- Use modernizr for testing HTML5 standards... -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/sb-admin-2.min.js"></script>
+    <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Adding Custom Style/Script -->
+    <link rel="stylesheet" href="~/css/style.css" />
+    <script src="~/js/site.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

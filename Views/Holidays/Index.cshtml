@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ApolloWMS.Models.Holidays>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="h3 mb-2 text-gray-800">Holidays</h1>
+
+<p>
+    <a class="btn btn-success btn-icon-split" asp-action="Create">
+        <span class="icon text-black-50">
+            <i class="fas fa-fw fa-calendar-alt"></i>
+            New Holiday
+        </span>
+    </a>
+</p>
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="holidaysDataSource" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HolidayName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DefinedDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EncompassedYear)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UpdatedBy)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UpdatedDate)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HolidayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DefinedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EncompassedYear)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdatedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdatedDate)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.HolidayId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.HolidayId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.HolidayId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

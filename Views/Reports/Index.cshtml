@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ApolloWMS.Models.ViewModels.ReportViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-success btn-icon-split" asp-action="Create">
+        <span class="icon text-black-50">
+            <i class="fas fa-fw fa-flag-checkered"></i>
+            New Report
+        </span>
+    </a>
+</p>
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table id="reportsDataSource" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ReportingLevel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ReportTo)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReportingLevel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReportTo)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ReportId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ReportId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ReportId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>s
+    </div>
+</div>

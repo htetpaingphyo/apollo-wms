@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ApolloWMS.Models.LeaveType>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-success btn-icon-split" asp-action="Create">
+        <span class="icon text-black-50">
+            <i class="fas fa-fw fa-heartbeat"></i>
+            New LeaveType
+        </span>
+    </a>
+</p>
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table id="leaveTypeDataSource" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LeaveTypeName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveTypeName)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.LeaveTypeId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.LeaveTypeId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.LeaveTypeId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

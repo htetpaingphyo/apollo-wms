@@ -1,0 +1,46 @@
+﻿@model ApolloWMS.Models.ViewModels.LeaveRequestViewModel
+
+@{
+    ViewData["Title"] = "Permission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Permission</h1>
+
+<h6>To be completed by applicant's immediate manager.</h6>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Permission">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="LeaveRequestId" />
+                <input type="hidden" asp-for="LeaveTypeName" class="form-control" />
+                <input type="hidden" asp-for="From" class="form-control" />
+                <input type="hidden" asp-for="To" class="form-control" />
+                <input type="hidden" asp-for="Total" class="form-control" />
+                <input type="hidden" asp-for="ReasonForAbsence" class="form-control" />
+                <input type="hidden" asp-for="EmergencyContact" class="form-control" />
+                <input type="hidden" asp-for="Requester" class="form-control" />
+                <input type="hidden" asp-for="RequestedDate" class="form-control" />
+                <input type="hidden" asp-for="Status" class="form-control" />
+                <div class="form-group">
+                    <label asp-for="Remark" class="form-label-group"></label>
+                    <input asp-for="Remark" class="form-control" />
+                </div>                
+            </div>
+            <div class="form-group">
+                <input type="submit" name="btnStatus" value="Approve" class="btn btn-success" />
+                <input type="submit" name="btnStatus" value="Reject" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

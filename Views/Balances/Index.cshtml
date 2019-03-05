@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ApolloWMS.Models.ViewModels.BalanceViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-success btn-icon-split" asp-action="Create">
+        <span class="icon text-black-50">
+            <i class="fas fa-fw fa-balance-scale"></i>
+            Add Balance
+        </span>
+    </a>
+</p>
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table id="balancesDataSource" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmployeeName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LeaveType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalBalance)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UsedBalance)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RemainedBalance)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsEdited)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalBalance)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UsedBalance)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RemainedBalance)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsEdited)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.BalanceId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.BalanceId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.BalanceId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

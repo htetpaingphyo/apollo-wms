@@ -1,0 +1,189 @@
+﻿@model IEnumerable<ApolloWMS.Models.ViewModels.LeaveRequestViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Pending Requests</h1>
+
+<p>
+    <a class="btn btn-success btn-icon-split" asp-action="Create">
+        <span class="icon text-black-50">
+            <i class="fas fa-fw fa-heartbeat"></i>
+            Request Leave
+        </span>
+    </a>
+</p>
+
+@if (ViewBag.Role == "REQUESTER")
+{
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="reqDataSource" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LeaveTypeName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.From)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.To)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Total)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ReasonForAbsence)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmergencyContact)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Requester)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RequestedDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Remark)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LeaveTypeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.From)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.To)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Total) dayss
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReasonForAbsence)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmergencyContact)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Requester)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RequestedDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Remark)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.LeaveRequestId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.LeaveRequestId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.LeaveRequestId">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="reqDataSource" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LeaveTypeName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.From)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.To)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Total)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ReasonForAbsence)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmergencyContact)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Requester)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RequestedDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Remark)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LeaveTypeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.From)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.To)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Total) days
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReasonForAbsence)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmergencyContact)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Requester)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RequestedDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Remark)
+                            </td>
+                            <td>
+                                <a asp-action="Permission" asp-route-id="@item.LeaveRequestId">Permission</a> |
+                                <a asp-action="Details" asp-route-id="@item.LeaveRequestId">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
