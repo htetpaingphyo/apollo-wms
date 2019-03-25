@@ -24,7 +24,7 @@ namespace ApolloWMS
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                // Set context of "CheckConsentNeeded" to false to handling "Session"
+                // Set context of "CheckConsentNeeded" to false for handling "Session"
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });

@@ -5,6 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    IEnumerable<ApolloWMS.Models.ViewModels.BalanceViewModel> balances = ViewData["Balances"] as IEnumerable<ApolloWMS.Models.ViewModels.BalanceViewModel>;
+}
+
 <h1>Leave Request</h1>
 <h6>To be completed by the applicant.</h6>
 <hr />
@@ -20,12 +24,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="FromTimeOff" class="control-label"></label>
-                <input type="datetime" asp-for="FromTimeOff" class="form-control" />
+                <input asp-for="FromTimeOff" class="form-control" />
                 <span asp-validation-for="FromTimeOff" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ToTimeOff" class="control-label"></label>
-                <input type="datetime" asp-for="ToTimeOff" class="form-control" />
+                <input asp-for="ToTimeOff" class="form-control" />
                 <span asp-validation-for="ToTimeOff" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -52,6 +56,55 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+    </div>
+    <div class="col-md-8">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="balancesDataSource" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Employee Name
+                            </th>
+                            <th>
+                                Leave Type
+                            </th>
+                            <th>
+                                Total Balance
+                            </th>
+                            <th>
+                                Used Balance
+                            </th>
+                            <th>
+                                Remained Balance
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in balances)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LeaveType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalBalance)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UsedBalance)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RemainedBalance)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

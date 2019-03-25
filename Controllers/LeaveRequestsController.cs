@@ -155,6 +155,26 @@ namespace ApolloWMS.Controllers
             ViewBag.Role = role;
             ViewBag.Name = _context.Employee.SingleOrDefault(e => e.Email == _email).FirstName;
             ViewBag.LeaveTypes = _context.LeaveType.ToList();
+
+            var balances = _context.Balance.Where(b => b.EmployeeId == reqId).ToList();
+            List<BalanceViewModel> balanceViews = new List<BalanceViewModel>();
+            foreach (var bal in balances)
+            {
+                balanceViews.Add(new BalanceViewModel()
+                {
+                    BalanceId = bal.BalanceId,
+                    EmployeeName = $"{_context.Employee.SingleOrDefault(e => e.EmployeeId == bal.EmployeeId).LastName}, " +
+                                    $"{_context.Employee.SingleOrDefault(e => e.EmployeeId == bal.EmployeeId).FirstName}",
+                    LeaveType = _context.LeaveType.SingleOrDefault(l => l.LeaveTypeId == bal.LeaveTypeId).LeaveTypeName,
+                    TotalBalance = bal.TotalBalance,
+                    UsedBalance = bal.UsedBalance,
+                    RemainedBalance = bal.RemainedBalance,
+                    IsEdited = bal.IsEdited
+                });
+            }
+
+            ViewData["Balances"] = balanceViews;
+
             return View();
         }
 
