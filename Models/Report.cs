@@ -7,6 +7,6 @@ namespace ApolloWMS.Models
         public Guid ReportId { get; set; }
         public Guid EmployeeId { get; set; }
         public int ReportingLevel { get; set; }
-        public Guid ReportTo { get; set; }
+        public Guid? ReportTo { get; set; }
     }
 }

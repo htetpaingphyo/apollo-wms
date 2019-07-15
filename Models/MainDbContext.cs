@@ -195,5 +195,7 @@ namespace ApolloWMS.Models
         public DbSet<ApolloWMS.Models.ViewModels.ReportViewModel> ReportViewModel { get; set; }
 
         public DbSet<ApolloWMS.Models.ViewModels.LeaveRequestEditModel> LeaveRequestEditModel { get; set; }
+
+        public DbSet<ApolloWMS.Models.ViewModels.ChangePasswordViewModel> ChangePasswordViewModel { get; set; }
     }
 }

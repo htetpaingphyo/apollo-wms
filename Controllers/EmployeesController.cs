@@ -76,6 +76,8 @@ namespace ApolloWMS.Controllers
             if (ModelState.IsValid)
             {
                 employee.EmployeeId = Guid.NewGuid();
+                employee.Salt = utilities.UniqueKey;
+                employee.Password = utilities.EncryptPassword(employee.Password, employee.Salt);
                 employee.CreatedBy = _email;
                 employee.CreatedDate = DateTime.Now;
                 employee.UpdatedBy = null;
@@ -124,6 +126,11 @@ namespace ApolloWMS.Controllers
             {
                 try
                 {
+                    if (string.IsNullOrEmpty(employee.Salt))
+                    {
+                        employee.Salt = utilities.UniqueKey;
+                    }
+                    employee.Password = utilities.EncryptPassword(employee.Password, employee.Salt);
                     employee.UpdatedBy = _email;
                     employee.UpdatedDate = DateTime.Now;
 

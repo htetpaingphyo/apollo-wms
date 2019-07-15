@@ -40,17 +40,28 @@ namespace ApolloWMS.Controllers
             var balances = await _context.Balance.ToListAsync();
             List<BalanceViewModel> balanceViews = new List<BalanceViewModel>();
 
-            if (!utilities.
-                    GetRoleById(
-                        _context.Employee.SingleOrDefault(e => e.Email == _email).EmployeeId
-                            ).Equals(RoleType.EXAMINER))
+            // Not quite comprehending what it's purpose!
+            //
+            //if (!utilities.
+            //        GetRoleById(
+            //            _context.Employee.SingleOrDefault(e => e.Email == _email).EmployeeId
+            //                ).Equals(RoleType.EXAMINER))
+            //{
+            //    foreach (var role in utilities.GetReportersById(reqId))
+            //    {
+            //        // intentionally left blank...
+            //    }
+            //}
+
+            if (utilities.GetRoleById(reqId) == RoleType.REQUESTER)
             {
-                foreach (var role in utilities.GetReportersById(reqId))
-                {
-                    // Intentionally left blank...
-                }
+                balances = _context.Balance.Where(b => b.EmployeeId == reqId).ToList();
             }
 
+            if (utilities.GetRoleById(reqId) == RoleType.AUTHORIZER)
+            {
+                balances = utilities.GetBalancesByReportId(reqId);
+            }
 
             foreach (var bal in balances)
             {

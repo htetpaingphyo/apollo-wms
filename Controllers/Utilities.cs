@@ -1,4 +1,5 @@
 ﻿using ApolloWMS.Models;
+using ApolloWMS.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,19 @@ namespace ApolloWMS.Controllers
     public class Utilities
     {
         private MainDbContext _context;
+        private SecurityService _service;
 
         public Utilities(MainDbContext dbContext)
         {
             _context = dbContext;
+            _service = new SecurityService();
+        }
+
+        public string UniqueKey => _service.GetUniqueString;
+
+        public bool CheckCompleteMonth(DateTime today)
+        {
+            return today.Day == DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
         }
 
         public string GetRoleById(Guid userId)
@@ -35,6 +45,18 @@ namespace ApolloWMS.Controllers
             return roleName;
         }
 
+        public List<Balance> GetBalancesByReportId(Guid empId)
+        {
+            var balances = from b in _context.Balance.ToList()
+                           where (from r in _context.Report
+                                  where r.ReportTo == empId
+                                  select r.EmployeeId).Contains(b.EmployeeId)
+                           || b.EmployeeId == empId
+                           select b;
+
+            return balances.ToList();
+        }
+
         // Calculate the remaining balance of employee after taking leave.
         public double CalculateBalance(Guid userId, Guid leaveTypeId, DateTime from, DateTime to)
         {
@@ -52,7 +74,8 @@ namespace ApolloWMS.Controllers
                 {
                     totalDays = CalculateHolidays(from, to);
                 }
-                else
+
+                if (leaveType == LeaveTypeFormat.EARNED)
                 {
                     if (type == EmployeeTypeFormat.LOCAL)
                     {
@@ -85,7 +108,7 @@ namespace ApolloWMS.Controllers
             return totalDays;
         }
 
-        // Calculate the number of days taking rather than National Holidays.
+        // Calculate the number of days taking rather than Weekends and National Holidays.
         public double CalculateHolidays(DateTime from, DateTime to)
         {
             double totalHours = 0D;
@@ -115,7 +138,7 @@ namespace ApolloWMS.Controllers
         }
 
         // Get the authorizer's Id from report table.
-        public Guid GetAuthorizerId(Guid reqId)
+        public Guid? GetAuthorizerId(Guid reqId)
         {
             return _context.Report.SingleOrDefault(r => r.EmployeeId == reqId).ReportTo;
         }
@@ -123,6 +146,16 @@ namespace ApolloWMS.Controllers
         public List<Report> GetReportersById(Guid resId)
         {
             return _context.Report.Where(r => r.ReportTo == resId).ToList();
+        }
+
+        public string EncryptPassword(string pwdToEncrypt, string salt)
+        {
+            return _service.Encrypt(pwdToEncrypt, salt);
+        }
+
+        public string DecryptPassword(string pwdToDecrypt, string salt)
+        {
+            return _service.Decrypt(pwdToDecrypt, salt);
         }
     }
 }

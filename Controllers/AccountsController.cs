@@ -2,12 +2,13 @@
 using ApolloWMS.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Diagnostics;
 using System.Linq;
 
 namespace ApolloWMS.Controllers
 {
-    public class HomeController : Controller
+    public class AccountsController : Controller
     {
         private readonly MainDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -16,7 +17,7 @@ namespace ApolloWMS.Controllers
         private ISession _session => _httpContextAccessor.HttpContext.Session;
         private string _email = null;
 
-        public HomeController(MainDbContext context, IHttpContextAccessor httpContextAccessor)
+        public AccountsController(MainDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _context = context;
@@ -44,7 +45,9 @@ namespace ApolloWMS.Controllers
                 var login = _context.Employee.SingleOrDefault(e => e.Email == loginViewModel.Email);
                 if (login != null)
                 {
-                    if (login.Password == loginViewModel.Password)
+                    var attemptedPassword = loginViewModel.Password;
+                    var verifiedPassword = utilities.DecryptPassword(login.Password, login.Salt);
+                    if (attemptedPassword == verifiedPassword)
                     {
                         // set user's email to session state
                         _email = login.Email;
@@ -78,6 +81,55 @@ namespace ApolloWMS.Controllers
             _session.Clear();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            if (_session.GetString("sid") == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            _email = _session.GetString("sid");
+            var employee = _context.Employee.SingleOrDefault(e => e.Email == _email);
+
+            var chpwd = new ChangePasswordViewModel()
+            {
+                EmployeeId = employee.EmployeeId,
+                CurrentPassword = employee.Password,
+                NewPassword = string.Empty,
+                ConfirmPassword = string.Empty
+            };
+
+            var reqId = _context.Employee.SingleOrDefault(e => e.Email == _email).EmployeeId;
+            ViewBag.Role = utilities.GetRoleById(reqId);
+            ViewBag.Name = _context.Employee.SingleOrDefault(e => e.Email == _email).FirstName;
+            return View(chpwd);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangePassword(Guid id, [Bind("EmployeeId,CurrentPassword,NewPassword,ConfirmPassword")] ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var employee = _context.Employee.SingleOrDefault(e => e.EmployeeId == model.EmployeeId);
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+
+                if (string.IsNullOrEmpty(employee.Salt))
+                {
+                    employee.Salt = utilities.UniqueKey;
+                }
+                employee.Password = utilities.EncryptPassword(model.NewPassword, employee.Salt);
+
+                _context.Employee.Update(employee);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Create", "LeaveRequests");
         }
 
         public IActionResult Privacy()
